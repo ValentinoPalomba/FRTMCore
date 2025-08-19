@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol NetworkManager {
+public protocol NetworkManager: Sendable {
     func call<Input, Output>(_ dataRequest: DataRequest<Input, Output>) async throws -> Output
 }
 

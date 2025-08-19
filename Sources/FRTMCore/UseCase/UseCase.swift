@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol UseCase<Input, Output> {
+public protocol UseCase<Input, Output>: Sendable {
     associatedtype Input
     associatedtype Output
     
