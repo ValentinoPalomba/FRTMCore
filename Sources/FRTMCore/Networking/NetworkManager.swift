@@ -32,6 +32,13 @@ public actor CoreNetworkManager: NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = dataRequest.method.rawValue
         
+        
+        if let headers = dataRequest.headers {
+            for (key, value) in headers {
+                request.setValue(value, forHTTPHeaderField: key)
+            }
+        }
+        
         // Aggiungi body per metodi che lo supportano
         if dataRequest.method != .get {
             do {

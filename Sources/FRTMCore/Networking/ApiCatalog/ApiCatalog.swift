@@ -31,17 +31,19 @@ public extension ApiCatalog {
 
 
 public struct DataRequest<Input: Sendable & Codable, Output: Sendable & Codable>: Sendable {
-    var host: String
-    var path: String
-    var method: HTTPMethod
-    var input: Input
-    var outputType: Output.Type
+    let host: String
+    let path: String
+    let method: HTTPMethod
+    let input: Input
+    let outputType: Output.Type
+    let headers: [String: String]?
     
     init(
         host: String,
         path: String,
         method: HTTPMethod,
         input: Input,
+        headers: [String: String]? = nil,
         outputType: Output.Type
     ) {
         self.host = host
@@ -49,6 +51,7 @@ public struct DataRequest<Input: Sendable & Codable, Output: Sendable & Codable>
         self.method = method
         self.input = input
         self.outputType = outputType
+        self.headers = headers
     }
     
     var url: URL? {
