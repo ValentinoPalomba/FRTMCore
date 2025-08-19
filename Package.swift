@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "FRTMCore",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v16), .macOS(.v12)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
