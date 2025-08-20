@@ -88,38 +88,6 @@ class MyViewModel {
 }
 ```
 
-### Repository
-
-The `Repository` protocol helps you to abstract your data sources.
-
-**1. Define a Repository:**
-
-```swift
-import FRTMCore
-
-protocol MyRepositoryProtocol: Repository where Input == String, Output == String {}
-
-class MyRepository: MyRepositoryProtocol {
-    func execute(input: String) async throws -> String {
-        // Your data fetching logic here
-        return "Data for \(input)"
-    }
-}
-```
-
-**2. Use the Repository:**
-
-```swift
-class MyViewModel {
-    @Dependency var myRepository: MyRepositoryProtocol
-    
-    func fetchData() async {
-        let result = try? await myRepository.execute(input: "123")
-        print(result) // "Data for 123"
-    }
-}
-```
-
 ### Networking
 
 FRTMCore provides a simple and powerful networking layer based on `ApiCatalog` and `NetworkManager`.
