@@ -75,19 +75,19 @@ public final class CoreDependencyContainer: DependencyContainer {
 extension CoreDependencyContainer {
     
     /// Register a singleton instance
-    public func registerSingleton<T>(_ type: T.Type, factory: @Sendable @escaping () -> T) async {
+    public func registerSingleton<T>(_ type: T.Type, factory: @Sendable @escaping () -> T) {
         let provider = ServiceProvider(type, lifeCycle: .singleton, factory: factory)
         register(provider)
     }
     
     /// Register a factory
-    public func registerFactory<T>(_ type: T.Type, factory: @Sendable @escaping () -> T) async {
+    public func registerFactory<T>(_ type: T.Type, factory: @Sendable @escaping () -> T) {
         let provider = ServiceProvider(type, lifeCycle: .factory, factory: factory)
         register(provider)
     }
     
     /// Register an existing instance as singleton
-    public func registerInstance<T: Sendable>(_ type: T.Type, instance: T) async {
+    public func registerInstance<T: Sendable>(_ type: T.Type, instance: T) {
         let provider = ServiceProvider(type, lifeCycle: .singleton) { instance }
         register(provider)
     }
