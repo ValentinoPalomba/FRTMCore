@@ -14,15 +14,15 @@ public protocol DependencyContainer {
 }
 
 public final class CoreDependencyContainer: DependencyContainer {
-    private var factories: [String: () -> Any] = [:]
-    private var singletons: [String: Any] = [:]
+    private var factories: [ServiceKey: () -> Any] = [:]
+    private var singletons: [ServiceKey: Any] = [:]
     
     private init() {}
     
     nonisolated(unsafe) public static let shared = CoreDependencyContainer()
     
     public func register<T>(_ dependencyProvider: any DependencyProvider<T>) {
-        let key = String(describing: T.self)
+        let key = ServiceKey(type: dependencyProvider.serviceType)
         
         switch dependencyProvider.lifeCycle {
         case .singleton:
@@ -37,7 +37,7 @@ public final class CoreDependencyContainer: DependencyContainer {
     }
     
     public func resolve<T: Sendable>(_ type: T.Type) -> T? {
-        let key = String(describing: type)
+        let key = ServiceKey(type: type)
         
         // Check singletons first
         if let singleton = singletons[key] as? T {
@@ -65,7 +65,7 @@ public final class CoreDependencyContainer: DependencyContainer {
     }
     
     public func remove<T>(_ type: T.Type) async {
-        let key = String(describing: type)
+        let key = ServiceKey(type: type)
         factories.removeValue(forKey: key)
         singletons.removeValue(forKey: key)
     }
