@@ -7,5 +7,10 @@
 
 import Foundation
 struct ServiceKey: Hashable {
-    let type: Any.Type
+    private let typeID: ObjectIdentifier
+
+    init(type: Any.Type) {
+        self.typeID = ObjectIdentifier(type)
+    }
 }
+
